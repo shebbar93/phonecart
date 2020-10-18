@@ -9,7 +9,7 @@ const Loader = () => {
             display: 'block'
 
         }}>
-            <span class='sr-only'> Lading...</span>
+            <span className='sr-only'> Lading...</span>
         </Spinner>
     )
 }
