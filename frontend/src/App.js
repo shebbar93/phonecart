@@ -1,10 +1,22 @@
 import React from 'react';
-
+import { BrowserRouter as Router, Route } from 'react-router-dom'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Home from './screens/HomeScreen'
+import Product from './screens/ProductScreen'
+import { Container } from 'react-bootstrap'
 const App = () => {
   return (
-    <>
-      <h1> Welcome to Phone Cart</h1>
-    </>
+    <Router>
+      <Header />
+      <main className='py-3'>
+        <Container>
+          <Route path='/' component={Home} exact />
+          <Route path='/product/:id' component={Product} />
+        </Container>
+      </main>
+      <Footer />
+    </Router>
   );
 }
 
