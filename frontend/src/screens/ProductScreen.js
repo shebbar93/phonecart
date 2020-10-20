@@ -1,14 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
+import { Row, Col, Image, ListGroup, Card, Button, FormControl } from 'react-bootstrap'
 import Rating from '../components/Rating'
 import { listProductDetail } from '../actions/productActions'
 import Error from '../components/ErrorMessage'
 import Loader from '../components/Loader'
+import NumericInput from 'react-numeric-input'
 
-
-const ProductScreen = ({ match }) => {
+const ProductScreen = ({ history, match }) => {
+    const [qty, setQty] = useState(1)
     const dispatch = useDispatch();
 
     const productDetailsList = useSelector(state => state.listProductDetail)
@@ -18,12 +19,15 @@ const ProductScreen = ({ match }) => {
         dispatch(listProductDetail(match.params.id))
     }, [match])
 
+    const addToCartHandler = () => {
+        history.push(`/cart/${match.params.id}?qty=${qty}`)
+    }
     return (
         <>
             <Link className='btn btn-light my-3' to='/'>
                 Go Back
             </Link>
-            {loading ? <Loader /> : error ? <Error variant = 'danger' error={error}></Error> :
+            {loading ? <Loader /> : error ? <Error variant='danger' error={error}></Error> :
                 <Row>
                     <Col md={6}>
                         <Image src={product.image} alt={product.name} fluid />
@@ -64,8 +68,37 @@ const ProductScreen = ({ match }) => {
                                         </Col>
                                     </Row>
                                 </ListGroup.Item>
+
+                                {product.countInStock > 0 && (
+                                    <ListGroup.Item>
+                                        <Row>
+                                <Col>Quantity : </Col>
+                                            <Col>
+                                                {/* <FormControl as='select' value={qty} onChange={e => setQty(e.target.value)}>
+                                                    {[...Array(product.countInStock).keys()].map(x => (
+                                                        <option key={x + 1} value={x + 1}>{x + 1}</option>
+                                                    ))}
+
+                                                </FormControl> */}
+                                                
+                                                <NumericInput
+                                                    className="form-control"
+                                                    value={qty}
+                                                    onChange={e => setQty(e)}
+                                                    min={qty}
+                                                    max={product.countInStock}
+                                                    precision={0} />
+                                                
+                                                
+                                                
+                                            </Col>
+                                        </Row>
+                                    </ListGroup.Item>
+                                )}
+
                                 <ListGroup.Item>
                                     <Button
+                                        onClick={addToCartHandler}
                                         className='btn-block'
                                         type='button'
                                         disabled={product.countInStock === 0}
