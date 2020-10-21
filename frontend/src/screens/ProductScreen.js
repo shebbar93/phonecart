@@ -27,7 +27,7 @@ const ProductScreen = ({ history, match }) => {
             <Link className='btn btn-light my-3' to='/'>
                 Go Back
             </Link>
-            {loading ? <Loader /> : error ? <Error variant='danger' error={error}></Error> :
+            {loading ? <Loader /> : error ? <Error variant='danger'>{error}</Error> :
                 <Row>
                     <Col md={6}>
                         <Image src={product.image} alt={product.name} fluid />
