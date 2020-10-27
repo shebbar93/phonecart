@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, Col, Image, ListGroup, Card, Button, FormControl } from 'react-bootstrap'
+import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
 import Rating from '../components/Rating'
 import { listProductDetail } from '../actions/productActions'
 import Error from '../components/ErrorMessage'
@@ -17,7 +17,7 @@ const ProductScreen = ({ history, match }) => {
     const { error, product, loading } = productDetailsList
     useEffect(() => {
         dispatch(listProductDetail(match.params.id))
-    }, [match])
+    }, [match, dispatch])
 
     const addToCartHandler = () => {
         history.push(`/cart/${match.params.id}?qty=${qty}`)
@@ -72,7 +72,7 @@ const ProductScreen = ({ history, match }) => {
                                 {product.countInStock > 0 && (
                                     <ListGroup.Item>
                                         <Row>
-                                <Col>Quantity : </Col>
+                                            <Col>Quantity : </Col>
                                             <Col>
                                                 {/* <FormControl as='select' value={qty} onChange={e => setQty(e.target.value)}>
                                                     {[...Array(product.countInStock).keys()].map(x => (
@@ -80,7 +80,7 @@ const ProductScreen = ({ history, match }) => {
                                                     ))}
 
                                                 </FormControl> */}
-                                                
+
                                                 <NumericInput
                                                     className="form-control"
                                                     value={qty}
@@ -88,9 +88,9 @@ const ProductScreen = ({ history, match }) => {
                                                     min={qty}
                                                     max={product.countInStock}
                                                     precision={0} />
-                                                
-                                                
-                                                
+
+
+
                                             </Col>
                                         </Row>
                                     </ListGroup.Item>

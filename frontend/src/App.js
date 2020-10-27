@@ -6,15 +6,28 @@ import Home from './screens/HomeScreen'
 import Product from './screens/ProductScreen'
 import { Container } from 'react-bootstrap'
 import CartScreen from './screens/CartScreen'
+import LoginScreen from './screens/LoginScreen';
+import Register from './screens/RegisterScreen';
+import Profile from './screens/ProfileScreen';
+import Shipping from './screens/ShippingScreen';
+import Payment from './screens/PaymentScreen'
+import PlaceOrder from './screens/PlaceOrderScreen'
+
 const App = () => {
   return (
     <Router>
       <Header />
       <main className='py-3'>
         <Container>
-          <Route path='/' component={Home} exact />
+          <Route path='/shipping' component={Shipping} />
+          <Route path='/payment' component={Payment} />
+          <Route path='/placeOrder' component={PlaceOrder} />
+          <Route path='/login' component={LoginScreen} />
+          <Route path='/register' component={Register} />
+          <Route path='/profile' component={Profile} />
           <Route path='/product/:id' component={Product} />
           <Route path='/cart/:id?' component={CartScreen} />
+          <Route path='/' component={Home} exact />
         </Container>
       </main>
       <Footer />
@@ -23,3 +36,7 @@ const App = () => {
 }
 
 export default App;
+
+// Check for CartScreen.js
+// 1. Deletion of product from cart page.
+// 2. Refresh. So, it refreshes with URL and adds the current product to cart
