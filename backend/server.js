@@ -3,6 +3,7 @@ const dotEnv = require('dotenv')
 const connectDB = require('./config/db')
 const colors = require('colors')
 const productRoute = require('./routes/productRoutes')
+const orderRoute = require('./routes/orderRoutes')
 const userRoute = require('./routes/userRoutes')
 const { notFound, errorHandler } = require('./middleware/errorMiddleware')
 
@@ -19,6 +20,8 @@ connectDB();
 
 app.use('/api/products', productRoute)
 app.use('/api/users', userRoute)
+app.use('/api/orders', orderRoute)
+app.get('/api/config/paypal', (req, res) => res.send(process.env.PAYPAL_CLIENT_ID))
 
 app.use(notFound)
 app.use(errorHandler)
