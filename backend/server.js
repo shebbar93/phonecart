@@ -1,5 +1,6 @@
 const path = require('path')
 const express = require('express')
+const morgan = require('morgan')
 const dotEnv = require('dotenv')
 const connectDB = require('./config/db')
 const colors = require('colors')
@@ -11,6 +12,9 @@ const uploadRoutes = require('./routes/uploadRoutes');
 dotEnv.config();
 __dirname = path.resolve()
 const app = express()
+if (process.env.NODE_ENV === 'DEVELOPMENT') {
+    app.use(morgan('dev'))
+}
 app.use(express.json())
 
 app.get('/', (req, res) => {

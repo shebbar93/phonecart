@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { Row, Col, Image, ListGroup, Card, Button } from 'react-bootstrap'
 import Rating from '../components/Rating'
-import { listProductDetail } from '../actions/productActions'
+import { getProductDetail } from '../actions/productActions'
 import Error from '../components/ErrorMessage'
 import Loader from '../components/Loader'
 import NumericInput from 'react-numeric-input'
@@ -11,13 +11,14 @@ import NumericInput from 'react-numeric-input'
 const ProductScreen = ({ history, match }) => {
     const [qty, setQty] = useState(1)
     const dispatch = useDispatch();
-
-    const productDetailsList = useSelector(state => state.listProductDetail)
+    const productId = match.params.id;
+    const productDetailsList = useSelector(state => state.productDetail)
 
     const { error, product, loading } = productDetailsList
+    console.log(productDetailsList)
     useEffect(() => {
-        dispatch(listProductDetail(match.params.id))
-    }, [match, dispatch])
+        dispatch(getProductDetail(productId))
+    }, [dispatch, productId])
 
     const addToCartHandler = () => {
         history.push(`/cart/${match.params.id}?qty=${qty}`)
@@ -27,7 +28,7 @@ const ProductScreen = ({ history, match }) => {
             <Link className='btn btn-light my-3' to='/'>
                 Go Back
             </Link>
-            {loading ? <Loader /> : error ? <Error variant='danger'>{error}</Error> :
+            {loading ? <Loader /> : error ? <Error variant='danger'>{error}</Error> : product && (
                 <Row>
                     <Col md={6}>
                         <Image src={product.image} alt={product.name} fluid />
@@ -110,7 +111,7 @@ const ProductScreen = ({ history, match }) => {
                         </Card>
                     </Col>
                 </Row>
-            }
+            )}
         </>
     )
 }

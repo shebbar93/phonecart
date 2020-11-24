@@ -19,7 +19,7 @@ export const listProducts = () => async (dispatch) => {
     }
 }
 
-export const listProductDetail = (id) => async (dispatch) => {
+export const getProductDetail = (id) => async (dispatch) => {
     try {
         dispatch({ type: PRODUCT_DETAIL_REQUEST })
 

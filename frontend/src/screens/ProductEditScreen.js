@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/ErrorMessage'
 import Loader from '../components/Loader'
 import FormContainer from '../components/FormContainer'
-import { listProductDetail, updateProduct } from '../actions/productActions'
+import { getProductDetail, updateProduct } from '../actions/productActions'
 import { PRODUCT_UPDATE_RESET } from '../const/productConst'
 
 const ProductEditScreen = ({ match, history }) => {
@@ -22,7 +22,7 @@ const ProductEditScreen = ({ match, history }) => {
     const [uploading, setUploading] = useState(false)
     const dispatch = useDispatch()
 
-    const productDetails = useSelector((state) => state.listProductDetail)
+    const productDetails = useSelector((state) => state.productDetail)
     const { loading, error, product } = productDetails
 
     const productUpdate = useSelector((state) => state.productUpdate)
@@ -35,7 +35,7 @@ const ProductEditScreen = ({ match, history }) => {
             history.push('/admin/productList')
         }else{
             if (!product.name || product._id !== productId) {
-                dispatch(listProductDetail(productId))
+                dispatch(getProductDetail(productId))
             } else {
                 setName(product.name)
                 setPrice(product.price)

@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { listProducts } from '../actions/productActions'
 import Error from '../components/ErrorMessage'
 import Loader from '../components/Loader'
+import { PRODUCT_DETAIL_RESET } from '../const/productConst'
 const HomeScreen = () => {
 
     const dispatch = useDispatch();
@@ -13,6 +14,7 @@ const HomeScreen = () => {
     const { error, products, loading } = productList
 
     useEffect(() => {
+        dispatch({ type : PRODUCT_DETAIL_RESET })
         dispatch(listProducts())
     }, [dispatch])
     

@@ -7,7 +7,7 @@ import { userLoginReducer, userRegisterReducer, userDetailsReducer, userUpdatePr
 import { orderCreateReducer, orderDetailsReducer, orderPayReducer, orderListMyReducer, orderListReducer, orderDeliverReducer } from './reducers/orderReducers'
 const reducer = combineReducers({
     productList: productListReducer,
-    listProductDetail: productDetailReducer,
+    productDetail: productDetailReducer,
     productDelete: productDeleteReducer,
     productCreate: productCreateReducer,
     productUpdate: productUpdateReducer,
