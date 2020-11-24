@@ -1,10 +1,11 @@
 const express = require('express')
-const { getProducts, getProductById } = require('../controllers/productController')
+const { getProducts, getProductById, deleteProduct, createProduct, updateProduct } = require('../controllers/productController')
+const { protect, admin } = require('../middleware/authMiddleware')
 const route = express.Router()
 
 
-route.route('/').get(getProducts)
-route.route('/:id').get(getProductById)
+route.route('/').get(getProducts).post(protect, admin, createProduct)
+route.route('/:id').get(getProductById).delete(protect, admin, deleteProduct).put(protect, admin, updateProduct)
 
 
 // route.get('/', asyncHandler(async (req, res) => {
@@ -21,7 +22,7 @@ route.route('/:id').get(getProductById)
 //         res.status(404);
 //         throw new Error('Product not found');
 //     }
-        
+
 // }))
 
 module.exports = route
